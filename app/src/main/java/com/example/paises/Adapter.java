@@ -24,11 +24,7 @@ import java.util.ArrayList;
 
 
 class Adapter extends ArrayAdapter<Image> {
-    public Adapter(Context context, ArrayList<Image> pics){
-        super(context,-1,pics);
-
-    }
-    /* private Cells instance=Cells.getInstance();
+ private Cells instance=Cells.getInstance();
         private int counter=0;
         private static class ViewHolder {
             ImageView iconoImagen;
@@ -58,34 +54,10 @@ class Adapter extends ArrayAdapter<Image> {
             {
                 viewHolder=(ViewHolder) convertView.getTag();
             }
-            if(instance.getCache().containsKey(item.getimageUrl()))
-            {
-                viewHolder.iconoImagen.setImageBitmap(instance.getCache().get(item.getimageUrl()));
-                counter++;
-                System.out.println(counter);//Para ver si se esta cargando en cache prueba
-            }
-            else
-            {
-                new LoadImageTask(viewHolder.iconoImagen).execute(item.getimageUrl());
 
-            }
-            String temp=(position+1)+".-"+item.getTitle();
-            SpannableString temps=new SpannableString(temp);
-            temps.setSpan(new StyleSpan(Typeface.BOLD),0,temps.length(),0);
-            viewHolder.title.setText(temps);
-            viewHolder.title.append("\n"+item.getimageUrl());
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String urlInicial=item.getimageUrl();
-                    String urlFinal=urlInicial.replaceAll("thumb300y","large");
-                    Intent intent=new Intent(view.getContext(),PicActivity.class);
-                    Bundle extras=new Bundle();
-                    extras.putString("siteUrl",urlFinal);
-                    extras.putString("titlePic",item.getTitle());
-                    intent.putExtras(extras);
-                    view.getContext().startActivity(intent);
-
                 }
             });
             return convertView;
@@ -129,6 +101,6 @@ class Adapter extends ArrayAdapter<Image> {
             }
             @Override
             protected void onPostExecute(Bitmap bitmap){imageView.setImageBitmap(bitmap);}
-        }*/
+        }
 }
 
