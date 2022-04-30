@@ -57,7 +57,7 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
                 }
             });
             try {
-                if(item.getTitle().contains("Continent") || item.getimageUrl().contains("Continent")) {
+                if(item.getTitle().contains("Continent") || item.getimageUrl().contains("Continent")|| instance.getdataPic().contains(item)) {
                     Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), null);
                     viewHolder.iconoImagen.setImageDrawable(d);
                     viewHolder.title.append(item.getTitle());
