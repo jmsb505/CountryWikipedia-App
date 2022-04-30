@@ -13,16 +13,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-class Adapter extends ArrayAdapter<Flag> {
- private CountryData instance= CountryData.getInstance();
+class ContinentAdapter extends ArrayAdapter<Flag> {
+        private CountryData instance= CountryData.getInstance();
         private int counter=0;
         private static class ViewHolder {
             ImageView iconoImagen;
             TextView title;
         }
 
-        public Adapter(Context context, ArrayList<Flag> pics){
+        public ContinentAdapter(Context context, ArrayList<Flag> pics){
             super(context,-1,pics);
+
 
         }
 
@@ -49,10 +50,18 @@ class Adapter extends ArrayAdapter<Flag> {
                 public void onClick(View view) {
                 }
             });
+            convertView.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view) {
+                    return false;
+                }
+            });
             try {
-                Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), null);
-                viewHolder.iconoImagen.setImageDrawable(d);
-                viewHolder.title.append(item.getTitle());
+                if(item.getTitle().contains("Continent") || item.getimageUrl().contains("Continent")) {
+                    Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), null);
+                    viewHolder.iconoImagen.setImageDrawable(d);
+                    viewHolder.title.append(item.getTitle());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
