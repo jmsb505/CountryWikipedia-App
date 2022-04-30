@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cells {
-    private ArrayList<Picture> dataPic;
-    private Map<String,Picture> dataMap;
+public class CountryData {
+    private ArrayList<Flag> dataPic;
+    private Map<String,Flag> dataMap;
     private Map<String, Bitmap> cache;
     private Map<String, Bitmap> cacheBigPics;
-    private static Cells instancia=new Cells();
-    public static Cells getInstance(){return instancia;}
-    private Cells()
+    private static CountryData instancia=new CountryData();
+    public static CountryData getInstance(){return instancia;}
+    private CountryData()
     {
         dataPic=new ArrayList<>();
         dataMap=new HashMap<>();
@@ -28,16 +28,17 @@ public class Cells {
         cache.clear();
         cacheBigPics.clear();
     }
-    public ArrayList<Picture> getdataPic()
+    public ArrayList<Flag> getdataPic()
     {
         return dataPic;
     }
-    public Map<String,Picture> getdataMap(){return dataMap;}
+    public Map<String,Flag> getdataMap(){return dataMap;}
     public void addPicture(String title,String url)
     {
-        //hay que definir que va aqui cuando se tengan todas las clases
+        Flag f=new Flag(title,url);
+        dataPic.add(f);
     }
-    public void addToDataMap(String title,Picture pic){dataMap.put(title,pic);}
+    public void addToDataMap(String title,Flag pic){dataMap.put(title,pic);}
     public void addtoCache(String url,Bitmap bmap)
     {
         cache.put(url,bmap);

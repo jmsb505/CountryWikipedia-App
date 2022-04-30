@@ -1,15 +1,7 @@
 package com.example.paises;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.media.Image;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +9,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
-class Adapter extends ArrayAdapter<Image> {
- private Cells instance=Cells.getInstance();
+class Adapter extends ArrayAdapter<Flag> {
+ private CountryData instance= CountryData.getInstance();
         private int counter=0;
         private static class ViewHolder {
             ImageView iconoImagen;
             TextView title;
         }
 
-        public Adapter(Context context, ArrayList<Image> pics){
+        public Adapter(Context context, ArrayList<Flag> pics){
             super(context,-1,pics);
 
         }
@@ -39,7 +29,7 @@ class Adapter extends ArrayAdapter<Image> {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            //Picture item= (Picture) getItem(position);
+            Flag item= (Flag) getItem(position);
             ViewHolder viewHolder;
             if(convertView==null) {
 
@@ -50,9 +40,8 @@ class Adapter extends ArrayAdapter<Image> {
                 viewHolder.title = (TextView) convertView.findViewById(R.id.titleV);
                 convertView.setTag(viewHolder);
             }
-            else
-            {
-                viewHolder=(ViewHolder) convertView.getTag();
+            else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
 
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -60,11 +49,19 @@ class Adapter extends ArrayAdapter<Image> {
                 public void onClick(View view) {
                 }
             });
+            try {
+                Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), null);
+                viewHolder.iconoImagen.setImageDrawable(d);
+                viewHolder.title.append(item.getTitle());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             return convertView;
 
 
-        }
-        private class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
+        }}
+        /*private class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
             private ImageView imageView;
             public LoadImageTask(ImageView imageView)
             {
@@ -101,6 +98,6 @@ class Adapter extends ArrayAdapter<Image> {
             }
             @Override
             protected void onPostExecute(Bitmap bitmap){imageView.setImageBitmap(bitmap);}
-        }
+        }*?
 }
-
+*/
