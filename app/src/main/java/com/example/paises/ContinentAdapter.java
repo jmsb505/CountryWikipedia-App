@@ -1,6 +1,7 @@
 package com.example.paises;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -19,10 +21,16 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
         private static class ViewHolder {
             ImageView iconoImagen;
             TextView title;
-        }
 
-        public ContinentAdapter(Context context, ArrayList<Flag> pics){
+            public void setIconoImagen(Drawable d) {
+                iconoImagen.setImageDrawable(d);
+            }
+        }
+        AssetManager asset;
+
+        public ContinentAdapter(Context context, ArrayList<Flag> pics, AssetManager assetManager){
             super(context,-1,pics);
+            asset=assetManager;
 
 
         }
@@ -31,6 +39,7 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             Flag item= (Flag) getItem(position);
+            System.out.println(item.getimageUrl());
             ViewHolder viewHolder;
             if(convertView==null) {
 
@@ -59,15 +68,16 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
                     return false;
                 }
             });
-            /*try {
+            try {
 
-                    Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), "");
-                    viewHolder.iconoImagen.setImageDrawable(d);
+                InputStream ims= asset.open(item.getimageUrl());
+                    Drawable d = Drawable.createFromStream(ims,null);
+                    viewHolder.setIconoImagen(d);
 
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
 
             return convertView;
 
