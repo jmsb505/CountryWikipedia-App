@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class CountryData {
     private ArrayList<Flag> dataPic;
+    private ArrayList<Flag> continentPic;
     private Map<String,Flag> dataMap;
     private Map<String, Bitmap> cache;
     private Map<String, Bitmap> cacheBigPics;
@@ -16,6 +17,7 @@ public class CountryData {
     public static CountryData getInstance(){return instancia;}
     private CountryData()
     {
+        continentPic=new ArrayList<>();
         dataPic=new ArrayList<>();
         dataMap=new HashMap<>();
         cache=new HashMap<>();
@@ -24,6 +26,7 @@ public class CountryData {
     public void clearDataSet()
     {
         dataPic.clear();
+        continentPic.clear();
         dataMap.clear();
         cache.clear();
         cacheBigPics.clear();
@@ -32,10 +35,15 @@ public class CountryData {
     {
         return dataPic;
     }
+    public ArrayList<Flag>getContinentPic(){return continentPic;}
     public Map<String,Flag> getdataMap(){return dataMap;}
     public void addPicture(String title,String url)
     {
         dataPic.add(new Flag(title,url));
+    }
+    public void addContinent(String title, String url)
+    {
+        continentPic.add(new Flag(title,url));
     }
     public void addToDataMap(String title,Flag pic){dataMap.put(title,pic);}
     public void addtoCache(String url,Bitmap bmap)

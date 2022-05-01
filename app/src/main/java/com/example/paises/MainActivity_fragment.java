@@ -40,7 +40,7 @@ public class MainActivity_fragment extends Fragment {
     }
     public void loadGeography() throws IOException{
         assetManager= getResources().getAssets();
-        adaptador=new ContinentAdapter(this.getContext(),instance.getdataPic(), assetManager);
+        adaptador=new ContinentAdapter(this.getContext(),instance.getContinentPic(), assetManager);
         continentsLV.setAdapter(adaptador);
         String[] filesAfrica=assetManager.list("Africa");
         System.out.println("Largo de africa"+filesAfrica.length);
@@ -50,13 +50,14 @@ public class MainActivity_fragment extends Fragment {
         String[] filesOceania=assetManager.list("Oceania");
         String[] filesSouthAmerica=assetManager.list("South_America");
         String[] filesContinents=assetManager.list("Continents");
-        Arrays.stream(filesContinents).map(e->{
-            String sub2=e.replaceAll(".png","");
-            Flag f=new Flag(sub2,e);
-            instance.addPicture(sub2,e);
-            instance.addToDataMap(sub2,f);
+        List<Flag> listCont=Arrays.stream(filesContinents).map(e->{
+            String sub2=e.replaceAll("Continent.png","");
+            Flag f=new Flag(sub2,"Continents/"+e);
             return f;
-        });
+        }).collect(Collectors.toList());
+        listCont.forEach(e->instance.addContinent(e.getTitle(),e.getimageUrl()));
+
+
         List<Flag> listaAf=Arrays.stream(filesAfrica).map(e->{
             String[] sub=e.split("-");
             String sub2=sub[1].replaceAll(".png","");
