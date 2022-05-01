@@ -29,7 +29,7 @@ class CountryAdapter extends ArrayAdapter<Flag> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Flag item= (Flag) getItem(position);
+        Flag item=instance.getdataPic().get(position);
         ViewHolder viewHolder;
         if(convertView==null) {
 

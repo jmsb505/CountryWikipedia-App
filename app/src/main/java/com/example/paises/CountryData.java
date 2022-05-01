@@ -35,8 +35,7 @@ public class CountryData {
     public Map<String,Flag> getdataMap(){return dataMap;}
     public void addPicture(String title,String url)
     {
-        Flag f=new Flag(title,url);
-        dataPic.add(f);
+        dataPic.add(new Flag(title,url));
     }
     public void addToDataMap(String title,Flag pic){dataMap.put(title,pic);}
     public void addtoCache(String url,Bitmap bmap)

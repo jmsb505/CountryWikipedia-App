@@ -9,7 +9,8 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivity_fragment continents;
-    AssetManager assetManager;
+    private AssetManager assetManager;
+    CountryData instance=CountryData.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,11 +18,6 @@ public class MainActivity extends AppCompatActivity {
         continents=new MainActivity_fragment();
         assetManager=getAssets();
         getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).commit();
-        try {
-            continents.loadGeography(assetManager);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     @Override
     protected void onStart(){

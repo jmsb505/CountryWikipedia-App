@@ -44,6 +44,9 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
             else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
+            viewHolder.title.setText(item.getTitle());
+
+
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,15 +59,15 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
                     return false;
                 }
             });
-            try {
-                if(item.getTitle().contains("Continent") || item.getimageUrl().contains("Continent")|| instance.getdataPic().contains(item)) {
-                    Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), null);
+            /*try {
+
+                    Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), "");
                     viewHolder.iconoImagen.setImageDrawable(d);
-                    viewHolder.title.append(item.getTitle());
-                }
+
+
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             return convertView;
 
