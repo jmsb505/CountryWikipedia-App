@@ -1,5 +1,6 @@
 package com.example.paises;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,18 +19,15 @@ public class MainActivity_fragment extends Fragment {
     ContinentAdapter adaptador;
     ListView continentsLV;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view =
-                inflater.inflate(R.layout.fragment_continents, container, false);
+        View view = inflater.inflate(R.layout.fragment_continents, container, false);
         continentsLV=(ListView) view.findViewById(R.id.continetLV);
+        adaptador= new ContinentAdapter(getContext(),instance.getdataPic());
         continentsLV.setAdapter(adaptador);
         return view;
     }
-    public void loadGeography() throws IOException {
-        AssetManager assetManager= getContext().getAssets();
-
+    public void loadGeography(AssetManager assetManager) throws IOException{
         String[] filesAfrica=assetManager.list("Africa");
         String[] filesAsia=assetManager.list("Asia");
         String[] filesEurope=assetManager.list("Europe");
@@ -91,6 +89,7 @@ public class MainActivity_fragment extends Fragment {
             instance.addToDataMap(sub2,f);
             return f;
         });
+        //adaptador.notifyDataSetChanged();
     }
 
 }
