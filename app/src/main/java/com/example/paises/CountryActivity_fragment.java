@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 public class CountryActivity_fragment extends Fragment {
     private ListView countryLV;
-    private String origenContinent;
-    private int orientation;
-    private ArrayList<Flag> banderaspais;
-    private CountryData instance=CountryData.getInstance();
+    private final String origenContinent;
+    private final int orientation;
+    private final ArrayList<Flag> banderaspais;
+    private final CountryData instance=CountryData.getInstance();
     private AssetManager assetManager;
     private CountryAdapter adaptador;
     public CountryActivity_fragment(String origenContinent,int orientation)
@@ -37,6 +37,7 @@ public class CountryActivity_fragment extends Fragment {
         return view;
     }
     public void displayContinents(){
+        banderaspais.clear();
         assetManager=getResources().getAssets();
         instance.getdataPic().forEach(e->{
             if(e.getimageUrl().contains(origenContinent)) {
