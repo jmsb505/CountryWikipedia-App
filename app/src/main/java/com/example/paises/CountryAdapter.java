@@ -1,5 +1,6 @@
 package com.example.paises;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,14 +27,12 @@ class CountryAdapter extends ArrayAdapter<Flag> {
         }
     }
     private AssetManager asset;
+    private Context context=this.getContext();
 
     public CountryAdapter(Context context, ArrayList<Flag> pics,AssetManager assetManager){
         super(context,-1,pics);
         asset=assetManager;
-
-
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -55,6 +56,12 @@ class CountryAdapter extends ArrayAdapter<Flag> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intento=new Intent("custom-message");
+                intento.putExtra("intent",1);
+                intento.putExtra("Country",item.getTitle());
+                intento.putExtra("Orientation",0);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intento);
+
             }
         });
         convertView.setOnLongClickListener(new View.OnLongClickListener(){

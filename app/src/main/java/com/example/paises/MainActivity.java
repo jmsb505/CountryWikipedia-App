@@ -16,6 +16,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private MainActivity_fragment continents;
     private CountryActivity_fragment countries;
+    private WebActivity_fragment web;
     private AssetManager assetManager;
     private FragmentManager fragmentManager;
     CountryData instance=CountryData.getInstance();
@@ -34,10 +35,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            String continentName = intent.getStringExtra("Continent");
-           Integer orientation = intent.getIntExtra("Orientation",0);
-            countries=new CountryActivity_fragment(continentName,orientation);
-            fragmentManager.beginTransaction().replace(R.id.continentFL,countries).addToBackStack(null).commit();
+            int i=intent.getIntExtra("intent",0);
+            if(i==0) {
+                String continentName = intent.getStringExtra("Continent");
+                Integer orientation = intent.getIntExtra("Orientation", 0);
+                countries = new CountryActivity_fragment(continentName, orientation);
+                fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commit();
+            }
+            else{
+                String countryName = intent.getStringExtra("Country");
+                Integer orientation = intent.getIntExtra("Orientation", 0);
+                 web= new WebActivity_fragment(countryName, orientation);
+                fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commit();
+            }
 
         }
     };

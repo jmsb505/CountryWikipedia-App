@@ -66,10 +66,11 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
                 @Override
                 public void onClick(View view) {
                     Intent intento=new Intent("custom-message");
+                    intento.putExtra("intent",0);
                     intento.putExtra("Continent",item.getTitle());
                     intento.putExtra("Orientation",0);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intento);
-
+                    System.out.println(item.getTitle());
                 }
             });
             convertView.setOnLongClickListener(new View.OnLongClickListener(){
