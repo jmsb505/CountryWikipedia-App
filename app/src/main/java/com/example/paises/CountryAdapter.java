@@ -1,5 +1,6 @@
 package com.example.paises;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
 class CountryAdapter extends ArrayAdapter<Flag> {
     private CountryData instance= CountryData.getInstance();
-    private int counter=0;
     private static class ViewHolder {
         ImageView iconoImagen;
         TextView title;
+        public void setIconoImagen(Drawable d) {
+            iconoImagen.setImageDrawable(d);
+        }
     }
+    private AssetManager asset;
 
-    public CountryAdapter(Context context, ArrayList<Flag> pics){
+    public CountryAdapter(Context context, ArrayList<Flag> pics,AssetManager assetManager){
         super(context,-1,pics);
+        asset=assetManager;
 
 
     }
@@ -29,7 +35,7 @@ class CountryAdapter extends ArrayAdapter<Flag> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Flag item=instance.getdataPic().get(position);
+        Flag item=(Flag)getItem(position);
         ViewHolder viewHolder;
         if(convertView==null) {
 
@@ -43,6 +49,8 @@ class CountryAdapter extends ArrayAdapter<Flag> {
         else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        String tituloDef=item.getTitle().replaceAll("_"," ");
+        viewHolder.title.setText(tituloDef);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,13 +64,14 @@ class CountryAdapter extends ArrayAdapter<Flag> {
             }
         });
         try {
-            if(!item.getTitle().contains("Continent") || !item.getimageUrl().contains("Continent")||instance.getdataPic().contains(item)) {
-                Drawable d = Drawable.createFromStream(this.getContext().getAssets().open(item.getimageUrl()), null);
-                viewHolder.iconoImagen.setImageDrawable(d);
-                viewHolder.title.append(item.getTitle());
-            }
+
+            InputStream ims= asset.open(item.getimageUrl());
+            Drawable d = Drawable.createFromStream(ims,null);
+            viewHolder.setIconoImagen(d);
+
         } catch (IOException e) {
             e.printStackTrace();
+
         }
 
         return convertView;

@@ -43,7 +43,6 @@ public class MainActivity_fragment extends Fragment {
         adaptador=new ContinentAdapter(this.getContext(),instance.getContinentPic(), assetManager);
         continentsLV.setAdapter(adaptador);
         String[] filesAfrica=assetManager.list("Africa");
-        System.out.println("Largo de africa"+filesAfrica.length);
         String[] filesAsia=assetManager.list("Asia");
         String[] filesEurope=assetManager.list("Europe");
         String[] filesNorthAmerica=assetManager.list("North_America");
@@ -52,11 +51,11 @@ public class MainActivity_fragment extends Fragment {
         String[] filesContinents=assetManager.list("Continents");
         List<Flag> listCont=Arrays.stream(filesContinents).map(e->{
             String sub2=e.replaceAll("Continent.png","");
+            instance.setContador(sub2,0);
             Flag f=new Flag(sub2,"Continents/"+e);
             return f;
         }).collect(Collectors.toList());
         listCont.forEach(e->instance.addContinent(e.getTitle(),e.getimageUrl()));
-
 
         List<Flag> listaAf=Arrays.stream(filesAfrica).map(e->{
             String[] sub=e.split("-");
@@ -66,6 +65,7 @@ public class MainActivity_fragment extends Fragment {
         }).collect(Collectors.toList());
         System.out.println("LARGO DE LISTA AFRICANA"+ listaAf.size());
         listaAf.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
+        instance.setContador("Africa",listaAf.size());
 
         List<Flag> listaAs=Arrays.stream(filesAsia).parallel().map(e->{
             String[] sub=e.split("-");
@@ -74,6 +74,7 @@ public class MainActivity_fragment extends Fragment {
             return f;
         }).collect(Collectors.toList());
         listaAs.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
+        instance.setContador("Asia",listaAs.size());
 
         List<Flag>listaEU=Arrays.stream(filesEurope).parallel().map(e->{
             String[] sub=e.split("-");
@@ -82,6 +83,7 @@ public class MainActivity_fragment extends Fragment {
             return f;
         }).collect(Collectors.toList());
         listaEU.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
+        instance.setContador("Europe",listaEU.size());
 
         List<Flag>listaOC=Arrays.stream(filesOceania).parallel().map(e->{
             String[] sub=e.split("-");
@@ -90,6 +92,7 @@ public class MainActivity_fragment extends Fragment {
             return f;
         }).collect(Collectors.toList());
         listaOC.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
+        instance.setContador("Oceania",listaOC.size());
 
         List<Flag>listaNA=Arrays.stream(filesNorthAmerica).parallel().map(e->{
             String[] sub=e.split("-");
@@ -98,6 +101,7 @@ public class MainActivity_fragment extends Fragment {
             return f;
         }).collect(Collectors.toList());
         listaNA.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
+        instance.setContador("North_America",listaNA.size());
 
         List<Flag>listaSA=Arrays.stream(filesSouthAmerica).parallel().map(e->{
             String[] sub=e.split("-");
@@ -106,7 +110,7 @@ public class MainActivity_fragment extends Fragment {
             return f;
         }).collect(Collectors.toList());
         listaSA.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
-        System.out.println("InstanceSIZEFINAL"+instance.getdataPic().size());
+        instance.setContador("South_America",listaSA.size());
 
 
     }

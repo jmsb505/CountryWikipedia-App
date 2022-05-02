@@ -11,25 +11,31 @@ public class CountryData {
     private ArrayList<Flag> dataPic;
     private ArrayList<Flag> continentPic;
     private Map<String,Flag> dataMap;
-    private Map<String, Bitmap> cache;
-    private Map<String, Bitmap> cacheBigPics;
     private static CountryData instancia=new CountryData();
+    private Map<String,Integer> countryCounter;
     public static CountryData getInstance(){return instancia;}
     private CountryData()
     {
         continentPic=new ArrayList<>();
         dataPic=new ArrayList<>();
         dataMap=new HashMap<>();
-        cache=new HashMap<>();
-        cacheBigPics=new HashMap<>();
+        countryCounter=new HashMap<>();
+
     }
     public void clearDataSet()
     {
         dataPic.clear();
         continentPic.clear();
         dataMap.clear();
-        cache.clear();
-        cacheBigPics.clear();
+        countryCounter.clear();
+    }
+    public void setContador(String value,int number)
+    {
+        countryCounter.put(value,number);
+    }
+    public int getContador(String value)
+    {
+        return countryCounter.get(value);
     }
     public ArrayList<Flag> getdataPic()
     {
@@ -46,19 +52,5 @@ public class CountryData {
         continentPic.add(new Flag(title,url));
     }
     public void addToDataMap(String title,Flag pic){dataMap.put(title,pic);}
-    public void addtoCache(String url,Bitmap bmap)
-    {
-        cache.put(url,bmap);
-    }
-    public void addtoBigPicsCache(String url,Bitmap bmap)
-    {
-        cacheBigPics.put(url,bmap);
-    }
-    public Map<String, Bitmap> getCache() {
-        return cache;
-    }
-    public Map<String, Bitmap> getBigPicsCache() {
-        return cacheBigPics;
-    }
 
 }

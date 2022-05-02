@@ -1,6 +1,7 @@
 package com.example.paises;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ import java.util.ArrayList;
 
 class ContinentAdapter extends ArrayAdapter<Flag> {
         private CountryData instance= CountryData.getInstance();
-        private int counter=0;
+        private Context context=this.getContext();
         private static class ViewHolder {
             ImageView iconoImagen;
             TextView title;
@@ -26,7 +29,7 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
                 iconoImagen.setImageDrawable(d);
             }
         }
-        AssetManager asset;
+        private AssetManager asset;
 
         public ContinentAdapter(Context context, ArrayList<Flag> pics, AssetManager assetManager){
             super(context,-1,pics);
@@ -53,13 +56,20 @@ class ContinentAdapter extends ArrayAdapter<Flag> {
             else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.title.setText(item.getTitle());
+            String tituloDef=item.getTitle().replaceAll("_"," ");
+            viewHolder.title.setText(tituloDef+"\n"+instance.getContador(item.getTitle())+" Paises");
+            this.getContext();
 
 
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intento=new Intent("custom-message");
+                    intento.putExtra("Continent",item.getTitle());
+                    intento.putExtra("Orientation",0);
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(intento);
+
                 }
             });
             convertView.setOnLongClickListener(new View.OnLongClickListener(){
