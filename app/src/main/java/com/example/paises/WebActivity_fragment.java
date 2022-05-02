@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class WebActivity_fragment extends Fragment {
@@ -25,7 +26,9 @@ public class WebActivity_fragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view =
                 inflater.inflate(R.layout.fragment_web, container, false);
-        web=(WebView) view.findViewById(R.id.webV);
+        web= view.findViewById(R.id.webV);
+        androidx.appcompat.app.ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle(country);
         loadURL();
         return view;
     }

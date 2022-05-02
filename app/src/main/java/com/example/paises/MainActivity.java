@@ -1,5 +1,6 @@
 package com.example.paises;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import java.io.IOException;
@@ -42,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
+
             int i=intent.getIntExtra("intent",0);
             if(i==0) {
                 String continentName = intent.getStringExtra("Continent");
                 Integer orientation = intent.getIntExtra("Orientation", 0);
                 countries = new CountryActivity_fragment(continentName, orientation);
                 fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commit();
+
             }
             else{
                 String countryName = intent.getStringExtra("Country");
@@ -82,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
             Flag f=new Flag(sub2,"Africa/"+e);
             return f;
         }).collect(Collectors.toList());
-        System.out.println("LARGO DE LISTA AFRICANA"+ listaAf.size());
+        System.out.println(listaAf.get(52).getTitle());
+
         listaAf.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
         instance.setContador("Africa",listaAf.size());
 

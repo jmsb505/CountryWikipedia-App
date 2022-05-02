@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
@@ -25,7 +26,9 @@ public class MainActivity_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_continents, container, false);
-        continentsLV=(ListView) view.findViewById(R.id.continetLV);
+        androidx.appcompat.app.ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("Paises del mundo");
+        continentsLV= view.findViewById(R.id.continetLV);
         assetManager= getResources().getAssets();
         adaptador=new ContinentAdapter(this.getContext(),instance.getContinentPic(), assetManager);
         continentsLV.setAdapter(adaptador);
