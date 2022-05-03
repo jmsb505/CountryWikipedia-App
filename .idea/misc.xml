@@ -3,9 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/charl/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_web.xml" value="0.25" />
-        <entry key="..\:/Users/charl/Documents/GitHub/ProyectoF/app/src/main/res/layout/cell.xml" value="0.25" />
-        <entry key="..\:/Users/charl/Documents/GitHub/ProyectoF/app/src/main/res/layout/fragment_continents.xml" value="0.25" />
+        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-large/activity_main.xml" value="0.12" />
+        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.1276815181518152" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_contries.xml" value="0.1" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_countries.xml" value="0.21331521739130435" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_main.xml" value="0.264" />

@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private WebActivity_fragment web;
     private AssetManager assetManager;
     private FragmentManager fragmentManager;
+    private boolean isPhone=true;
+    private boolean hasCountries=false;
+    private boolean hasWeb=false;
     CountryData instance=CountryData.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).addToBackStack(null).commit();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+                screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE)
+            isPhone = false;
+
+        if(isPhone) {
+            setRequestedOrientation(
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+    }
     }
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -50,14 +69,40 @@ public class MainActivity extends AppCompatActivity {
                 String continentName = intent.getStringExtra("Continent");
                 Integer orientation = intent.getIntExtra("Orientation", 0);
                 countries = new CountryActivity_fragment(continentName, orientation);
-                fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commit();
+                if(isPhone) {
+                    fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commit();
+                }
+                else{
+
+                    if(hasCountries) {
+                        fragmentManager.beginTransaction().replace(R.id.countryFL, countries).commit();
+                    }
+                    else{
+                        fragmentManager.beginTransaction().add(R.id.countryFL, countries).commit();
+                        hasCountries=true;
+                    }
+
+                }
+
 
             }
             else{
                 String countryName = intent.getStringExtra("Country");
                 Integer orientation = intent.getIntExtra("Orientation", 0);
                  web= new WebActivity_fragment(countryName, orientation);
-                fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commit();
+                if(isPhone) {
+                    fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commit();                }
+                else{
+                    if(hasWeb) {
+                        fragmentManager.beginTransaction().replace(R.id.webFL, web).commit();
+                    }
+                    else{
+                        fragmentManager.beginTransaction().add(R.id.webFL, web).commit();;
+                        hasWeb=true;
+                    }
+
+                }
+
             }
 
         }
