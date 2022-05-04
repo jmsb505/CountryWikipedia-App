@@ -13,6 +13,9 @@ import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,12 +38,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         continents=new MainActivity_fragment();
         fragmentManager=getSupportFragmentManager();
-        assetManager=getAssets();
-        try {
-            loadGeography();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Intent intento=getIntent();
+        if(intento.getStringArrayListExtra("PaisesCargados")!=null)
+        {
+            if(intento.getStringArrayListExtra("PaisesCargados").size()>0)
+            {
+                instance.clearDataSet();
+                intento.getStringArrayListExtra("PaisesCargados").forEach(e-> {
+                    try {
+                        loadByContinent(e);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+            }
+            else
+            {
+                instance.clearDataSet();
+                try {
+                    loadGeography();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
+        else {
+            try {
+                loadGeography();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        assetManager=getAssets();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).commit();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
@@ -67,15 +98,15 @@ public class MainActivity extends AppCompatActivity {
                 Integer orientation = intent.getIntExtra("Orientation", 0);
                 countries = new CountryActivity_fragment(continentName, orientation);
                 if(isPhone) {
-                    fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commit();
+                    fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commitAllowingStateLoss();
                 }
                 else{
 
                     if(hasCountries) {
-                        fragmentManager.beginTransaction().replace(R.id.countryFL, countries).commit();
+                        fragmentManager.beginTransaction().replace(R.id.countryFL, countries).commitAllowingStateLoss();
                     }
                     else{
-                        fragmentManager.beginTransaction().add(R.id.countryFL, countries).commit();
+                        fragmentManager.beginTransaction().add(R.id.countryFL, countries).commitAllowingStateLoss();
                         hasCountries=true;
                     }
 
@@ -88,13 +119,13 @@ public class MainActivity extends AppCompatActivity {
                 Integer orientation = intent.getIntExtra("Orientation", 0);
                  web= new WebActivity_fragment(countryName, orientation);
                 if(isPhone) {
-                    fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commit();}
+                    fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commitAllowingStateLoss();}
                 else{
                     if(hasWeb) {
-                        fragmentManager.beginTransaction().replace(R.id.webFL, web).commit();
+                        fragmentManager.beginTransaction().replace(R.id.webFL, web).commitAllowingStateLoss();
                     }
                     else{
-                        fragmentManager.beginTransaction().add(R.id.webFL, web).commit();;
+                        fragmentManager.beginTransaction().add(R.id.webFL, web).commitAllowingStateLoss();
                         hasWeb=true;
                     }
 
@@ -176,6 +207,35 @@ public class MainActivity extends AppCompatActivity {
         }).collect(Collectors.toList());
         listaSA.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
         instance.setContador("South_America",listaSA.size());
+
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent=new Intent(this,SettingsActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
+    public void loadByContinent(String continent) throws IOException {
+        assetManager= getResources().getAssets();
+        String [] filesContinent=assetManager.list(continent);
+        List<Flag> listaRR=Arrays.stream(filesContinent).map(e->{
+            String[] sub=e.split("-");
+            String sub2=sub[1].replaceAll(".png","");
+            Flag f=new Flag(sub2,continent+"/"+e);
+            return f;
+        }).collect(Collectors.toList());
+        listaRR.forEach(e->instance.addPicture(e.getTitle(),e.getimageUrl()));
+        instance.setContador(continent,listaRR.size());
+        Flag c=new Flag(continent,"Continents/"+continent+"Continent.png");
+        instance.addContinent(continent,"Continents/"+continent+"Continent.png");
+
 
 
     }

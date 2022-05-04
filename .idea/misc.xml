@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/charl/Documents/GitHub/ProyectoF/app/src/main/res/drawable/ic_settings_24dp.xml" value="0.218" />
+        <entry key="..\:/Users/charl/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_settings.xml" value="0.25" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-land/activity_main.xml" value="0.23589065255731922" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-large/activity_main.xml" value="0.12" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-sw600dp-land/activity_main.xml" value="0.1442826321467098" />
