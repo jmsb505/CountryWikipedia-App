@@ -101,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction().replace(R.id.continentFL, countries).addToBackStack(null).commitAllowingStateLoss();
                 }
                 else{
+                    if(getResources().getConfiguration().orientation==1){
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }
+                    else{
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    }
 
                     if(hasCountries) {
                         fragmentManager.beginTransaction().replace(R.id.countryFL, countries).addToBackStack(null).commitAllowingStateLoss();
