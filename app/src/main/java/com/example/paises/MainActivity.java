@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     CountryData instance=CountryData.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(savedInstanceState==null)
+        {
+            System.out.println("NULL INSTANCE ERRORR");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         continents=new MainActivity_fragment();
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
         assetManager=getAssets();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).addToBackStack(null).commitAllowingStateLoss();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
         int screenSize = getResources().getConfiguration().screenLayout &

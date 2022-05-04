@@ -34,6 +34,10 @@ public class SettingsActivity extends AppCompatActivity {
                         itemstosend.add(listItems[i]);
                     }
                 }
+                if(itemstosend.size()==0)
+                {
+                    Toast.makeText(SettingsActivity.this, "Ningun continente seleccionado, mostrando todos!", Toast.LENGTH_SHORT).show();
+                }
                 Intent intento=new Intent(getApplicationContext(),MainActivity.class);
                 intento.putStringArrayListExtra("PaisesCargados",itemstosend);
                 startActivity(intento);
