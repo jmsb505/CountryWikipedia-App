@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
     CountryData instance=CountryData.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(savedInstanceState==null)
-        {
-            System.out.println("NULL INSTANCE ERRORR");
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         continents=new MainActivity_fragment();
@@ -107,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
                 else{
 
                     if(hasCountries) {
-                        fragmentManager.beginTransaction().replace(R.id.countryFL, countries).commitAllowingStateLoss();
+                        fragmentManager.beginTransaction().replace(R.id.countryFL, countries).addToBackStack(null).commitAllowingStateLoss();
                     }
                     else{
-                        fragmentManager.beginTransaction().add(R.id.countryFL, countries).commitAllowingStateLoss();
+                        fragmentManager.beginTransaction().add(R.id.countryFL, countries).addToBackStack(null).commitAllowingStateLoss();
                         hasCountries=true;
                     }
 
@@ -126,10 +122,10 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commitAllowingStateLoss();}
                 else{
                     if(hasWeb) {
-                        fragmentManager.beginTransaction().replace(R.id.webFL, web).commitAllowingStateLoss();
+                        fragmentManager.beginTransaction().replace(R.id.webFL, web).addToBackStack(null).commitAllowingStateLoss();
                     }
                     else{
-                        fragmentManager.beginTransaction().add(R.id.webFL, web).commitAllowingStateLoss();
+                        fragmentManager.beginTransaction().add(R.id.webFL, web).addToBackStack(null).commitAllowingStateLoss();
                         hasWeb=true;
                     }
 
