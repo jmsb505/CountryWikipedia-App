@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.continentFL,continents).commit();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -55,10 +55,7 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(
                     ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-    }
     }
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Integer orientation = intent.getIntExtra("Orientation", 0);
                  web= new WebActivity_fragment(countryName, orientation);
                 if(isPhone) {
-                    fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commit();                }
+                    fragmentManager.beginTransaction().replace(R.id.continentFL, web).addToBackStack(null).commit();}
                 else{
                     if(hasWeb) {
                         fragmentManager.beginTransaction().replace(R.id.webFL, web).commit();

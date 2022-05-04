@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-land/activity_main.xml" value="0.23589065255731922" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-large/activity_main.xml" value="0.12" />
+        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-sw600dp-land/activity_main.xml" value="0.1442826321467098" />
+        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-sw600dp-port/activity_main.xml" value="0.14692982456140352" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.1276815181518152" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_contries.xml" value="0.1" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_countries.xml" value="0.21331521739130435" />
-        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/activity_web.xml" value="0.21331521739130435" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/cell.xml" value="0.21331521739130435" />
         <entry key="..\:/Users/sjuan/Documents/GitHub/ProyectoF/app/src/main/res/layout/content_main.xml" value="0.1265625" />
